@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubectl-config-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: codefresh/kubectl
+#      command: [ "/bin/sh", "-c", "ls -la /root/.tiran" ]
+      command: [ "sleep", "300"]
+      volumeMounts:
+      - name: configmap-volume
+        mountPath: /root/.kube
+  volumes:
+    - name: configmap-volume
+      configMap:
+        # Provide the name of the ConfigMap containing the files you want
+        # to add to the container
+        name: k8s-config-file
+  restartPolicy: Never
+
+
