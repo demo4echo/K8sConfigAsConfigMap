@@ -9,14 +9,21 @@ spec:
 #      command: [ "/bin/sh", "-c", "ls -la /root/.tiran" ]
       command: [ "sleep", "300"]
       volumeMounts:
-      - name: configmap-volume
+      - name: k8s-config-file-configmap-volume
         mountPath: /root/.kube
+      - name: config-file-as-json-configmap-volume
+        mountPath: /root/tmp
   volumes:
-    - name: configmap-volume
+    - name: k8s-config-file-configmap-volume
       configMap:
         # Provide the name of the ConfigMap containing the files you want
         # to add to the container
         name: k8s-config-file
+    - name: config-file-as-json-configmap-volume
+      configMap:
+        # Provide the name of the ConfigMap containing the files you want
+        # to add to the container
+        name: config-file-as-json
   restartPolicy: Never
 
 
